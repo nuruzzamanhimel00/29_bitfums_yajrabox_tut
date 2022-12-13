@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use DataTables;
 
 class HomeController extends Controller
 {
@@ -26,5 +27,9 @@ class HomeController extends Controller
     {
         $users = User::get();
         return view('home',compact('users'));
+    }
+
+    public function getUsers(Request $request){
+        return Datatables::of(User::query()) ->make(true);
     }
 }
