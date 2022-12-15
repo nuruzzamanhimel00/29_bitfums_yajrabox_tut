@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Http\Response;
 
 class HomeController extends Controller
 {
@@ -29,6 +30,13 @@ class HomeController extends Controller
         return view('home');
         // return view('home',compact('users'));
     }
+    public function userDelete($id){
+        $user = User::find($id);
+        throw_if(!$user && $user->id == auth()->id() ,new \Exception("You're not authorized!", Response::HTTP_FORBIDDEN));
+        if($user->delete()){
+            return redirect()->route('home');
+        }
+    }
 
     public function getUsers(Request $request){
         return Datatables::of(User::query())
@@ -51,9 +59,11 @@ class HomeController extends Controller
         ->addColumn('role_name', function(User $user) {
             return  $user->role->name ;
         })
-        ->addColumn('action', function($row){
+        ->addColumn('action', function(User $user){
 
-                $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                $btn = "<a href='javascript:void(0)' class='edit btn btn-primary btn-sm'>View</a>
+                <a href='".route('user.delete',['id'=>$user->id])."' class='edit btn btn-danger btn-sm'>Delete</a>
+                ";
 
                 return $btn;
         })
