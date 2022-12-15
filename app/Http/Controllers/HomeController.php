@@ -25,11 +25,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::get();
-        return view('home',compact('users'));
+        // $users = User::get();
+        return view('home');
+        // return view('home',compact('users'));
     }
 
     public function getUsers(Request $request){
-        return Datatables::of(User::query()) ->make(true);
+        return Datatables::of(User::query())
+        // ->setRowClass(function ($user) {
+        //     return $user->id % 2 == 0 ? 'text-success' : 'text-danger';
+        // })
+        ->setRowClass('{{ $id % 2 == 0 ? "text-success" : "text-danger" }}')
+        ->setRowId(function ($user) {
+            return "user_".$user->id;
+        })
+        ->setRowAttr([
+            'align' => 'center',
+        ])
+        ->make(true);
     }
 }
