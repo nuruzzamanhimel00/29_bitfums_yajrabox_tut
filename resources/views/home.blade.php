@@ -19,10 +19,13 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Name</th>
+
+                                    <th>intro</th>
+                                    <th>Role name</th>
                                     <th>Email</th>
                                     <th>Create at</th>
                                     <th>Update at</th>
-                                    {{-- <th width="100px">Action</th> --}}
+                                    <th width="100px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,6 +60,14 @@
                         name: 'name'
                     },
                     {
+                        data: 'intro',
+                        name: 'intro'
+                    },
+                    {
+                        data: 'role_name',
+                        name: 'role_name'
+                    },
+                    {
                         data: 'email',
                         name: 'email'
                     },
@@ -68,12 +79,12 @@
                         data: 'updated_at',
                         name: 'updated_at'
                     },
-                    // {
-                    //     data: 'action',
-                    //     name: 'action',
-                    //     orderable: false,
-                    //     searchable: false
-                    // },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
                 ]
             });
         });
