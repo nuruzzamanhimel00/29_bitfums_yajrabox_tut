@@ -44,6 +44,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $exportColumns = [
+        'name',
+        'email',
+    ];
+
+    protected $printColumns = [
+        'name',
+        'email',
+    ];
+
     public function role(){
         return $this->belongsTo(Role::class,'roles','id');
     }

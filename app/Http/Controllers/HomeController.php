@@ -39,6 +39,8 @@ class HomeController extends Controller
     }
 
     public function getUsers(Request $request){
+
+
         return Datatables::of(User::query())
         // ->setRowClass(function ($user) {
         //     return $user->id % 2 == 0 ? 'text-success' : 'text-danger';
@@ -72,10 +74,15 @@ class HomeController extends Controller
             return  $user->created_at->diffForHumans();
         })
 
-        ->editColumn('updated_at', function(User $user){
-            return  $user->updated_at->diffForHumans();
-        })
+        // ->editColumn('updated_at', function(User $user){
+        //     return  $user->updated_at->diffForHumans();
+        // })
+        ->editColumn('updated_at', 'column')
+
         ->rawColumns(['updated_at','action'])
+
+        ->removeColumn('password')
+
         ->make(true);
     }
 }
