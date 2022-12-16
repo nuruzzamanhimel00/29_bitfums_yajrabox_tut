@@ -72,6 +72,10 @@ class HomeController extends Controller
             return  $user->created_at->diffForHumans();
         })
 
+        ->editColumn('updated_at', function(User $user){
+            return  $user->updated_at->diffForHumans();
+        })
+        ->rawColumns(['updated_at','action'])
         ->make(true);
     }
 }
