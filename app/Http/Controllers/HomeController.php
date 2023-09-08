@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -55,11 +55,11 @@ class HomeController extends Controller
 
         // ->addColumn('intro', 'Hi {{$name}}!')
         ->addColumn('intro', function(User $user) {
-            return 'Hi ' . $user->name . '!';
+            return 'Hi ' . $user->name ?? '' . '!';
         })
 
         ->addColumn('role_name', function(User $user) {
-            return  $user->role->name ;
+            return $user->role != null ?  $user->role->name : 'Admin' ;
         })
         ->addColumn('action', function(User $user){
 
